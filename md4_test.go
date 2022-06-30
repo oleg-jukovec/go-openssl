@@ -59,11 +59,10 @@ var md4Examples = []struct{ out, in string }{
 func skipIfMD4Unsupported(t testing.TB) {
 	t.Helper()
 
-	hash, err := NewMD4Hash()
+	_, err := NewMD4Hash()
 	if err != nil {
-		t.Skip("MD4 is not supported by OpenSSL")
+		t.Skipf("MD4 is not supported: %s", err)
 	}
-	hash.Close()
 }
 
 func TestMD4Examples(t *testing.T) {

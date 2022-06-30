@@ -52,7 +52,8 @@ func (s *MD4Hash) Close() {
 
 func (s *MD4Hash) Reset() error {
 	if C.X_EVP_DigestInit_ex(s.ctx, C.X_EVP_md4(), engineRef(s.engine)) != 1 {
-		return errors.New("openssl: md4: cannot init digest ctx")
+		return errors.New("openssl: md4: cannot init digest ctx: " +
+			errorFromErrorQueue().Error())
 	}
 	return nil
 }
